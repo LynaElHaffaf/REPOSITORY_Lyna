@@ -95,13 +95,19 @@ class BookManager:
 manager = BookManager()
 manager.menu()
 
-#to include in code
+#To include in code
 import pandas as pd
 import xlrd
 file_path = "/Users/lynaelhaffaf/Documents/expm.xlsx"
 df = pd.read_excel(file_path)
 df
 
+#To check if the file exists 
+import os 
+music = "expm.xlsx"
+if os.path.exists('music'):
+    print('this excel file exists ')
+    
 # In[ ]:
 
 
