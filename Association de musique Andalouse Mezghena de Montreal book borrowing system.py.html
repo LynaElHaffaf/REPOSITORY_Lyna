@@ -107,7 +107,131 @@ import os
 music = "expm.xlsx"
 if os.path.exists('music'):
     print('this excel file exists ')
+
+# Updated code that check all book in the excel file 
+class Book: 
+    def __init__(self,name,author,comment,state=0):
+        self.name = name
+        self.author = author
+        self.comment = comment
+        self.state = state
+        
+    def __str__(self):
+        status = 'Not loaned'
+        if self.state == 1:
+            status = 'Loaned'
+        return"Name :% s \ t Author:% s \ n Recommended language:% s \ n status:% s"%(self.name,self.author,self.comment,status)
     
+
+class BookManager: 
+    books = []
+   
+    
+    
+    def __init__(self):#from pandas import ExcelFile
+        import pandas as pd 
+        import xlrd
+        file_path = "/Users/lynaelhaffaf/Downloads/exp.xlsx"
+        df = pd.read_excel(file_path)
+        #book1 = Book('La Musique Arabo-Andalouse', 'Christian Poché', "Ce livre éclaire les origines arabes et andalouses dune musique élaborée depuis le IXe siècle.")
+        #book2 = Book('Lempreinte du Maghreb', 'Mahmoud Guettat', 'Synthèse la plus exhaustive sur la musique arabo andalouse.')
+        #book3 = Book('Ziryab, le maitre de lAndalousie:Histoire de musique arabe', "Youcef Dris", 'Ziryab est celui qui va être le précuseur de la métamorphose de la musique arabo andalouse.')
+        #self.books.append(book1)
+        #self.books.append(book2)
+        #self.books.append(book3)
+        #for row in file_path.iter_rows(min_row=1, min_col=1, max_row=12, max_col=3):
+            #for cell in row:
+                #print(cell.value, end=" ")
+                #print()  
+        #from xlrd import open_workbook
+        #wb = open_workbook("expm.xlsx")
+        #values = []
+        #for s in wb.sheets():
+            #for row in range(1,s.nrows):
+                #col_names = s.row(0)
+                #col_value = []
+                #for name, col in zip(col_names, range(s.ncols)): 
+                    #value = (s.cell(row,col).value)
+                    #try:value = str (int(value))
+                    #except : pass
+                    #col_value.append((name.value, value))
+                    #values.append(col_value)
+                    #print(values)
+        
+        def menu(self):
+            print('Welcome to the Mezghena book management system!" \n')
+        while True: 
+            print('1. Check all books\n2. Add books\n3. Borrow books\n4. Return books\n5. Exit the system\n')
+            choice = int(input('Please enter the number to select the corresponding function:'))
+            if choice == 1:
+                import pandas as pd 
+                import xlrd
+                file_path = "/Users/lynaelhaffaf/Documents/expm.xls"
+                #df = pd.read_excel(file_path)
+                workbook=xlrd.open_workbook(file_path)
+                sheet=workbook.sheet_by_index(0)
+                print(sheet.cell_value(0,1))
+                for row in range(1,sheet.nrows):
+                    print(sheet.cell_value(row,1))
+               # self.show_all_book()
+            elif choice == 2:
+                self.add_book()
+            elif choice == 3:
+                self.lend_book()
+            elif choice == 4:
+                self.return_book()
+            elif choice == 5:
+                print ("Thank you for using Mezghena book management system! I wish you a happy reading! ")
+                break 
+    
+    def show_all_book(self):
+        for book in self.books:
+            print(book)
+            print('')
+            
+    def add_book(self):
+        new_name = input("Please enter the book name:")
+        new_author = input('Please enter the Author:')
+        new_comment = input("Please enter the book summary:")
+        new_book = Book(new_name, new_author, new_comment)
+        
+        self.books.append(new_book)
+        print('Congratulations! The book entry was successful! \n')
+        
+    def check_book(self, name):
+        for book in self.books: 
+            if book.name == name: 
+                return book
+        else: 
+            return None 
+        
+    def lend_book(self):
+        name = input('Please enter the title of the book you want to borrow:')
+        res = self.check_book(name)
+        
+        if res != None: 
+            if res.state ==1:
+                print ('Unfortunately, this book was borrowed! ')
+            else: 
+                print('You have successfuly borrowed the book, please return the book in one month! ')
+                res.state = 1
+        else:
+            print('Im very sorry, this library hasnt stored books yet!')
+            
+    def return_book(self):
+        name = input('Please enter the name of the returned book: ')
+        rem = self.check_book(name)
+        
+        if rem != None:
+            if rem.state==1:
+                print('Returned succesfully, welcome to borrow it next time! ')
+            else:
+                print('No need to return, please verify the information')
+        else:
+            print('This book is temporarily useless in the system! ')
+            
+manager = BookManager()
+manager.menu()
 # In[ ]:
 
 
