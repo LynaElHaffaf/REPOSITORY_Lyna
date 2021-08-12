@@ -1,6 +1,4 @@
-import os
-
-#to check if the file exists 
+#To check if the file exists 
 import os
 import json 
 roi_data = "/Users/lynaelhaffaf/Documents/rois.json"
@@ -9,9 +7,11 @@ if os.path.exists(roi_data):
 else: 
     print ('Not found')
 
-#To read the ROI json file  
-import pandas as pd
-import json
-file_path = "/Users/lynaelhaffaf/Documents/rois.json"
-df = pd.read_json(file_path)
-df
+#After adjusting the json file, 
+#Read the ROI json file 
+import json 
+f = open('/Users/lynaelhaffaf/Documents/rois.json')
+data = json.load(f)
+for i in data['roi_details']: 
+    print(i)
+f.close()
