@@ -22,5 +22,5 @@ print(comparevalues)
 import numpy as np 
 rows,cols = np.where(comparevalues == False)
 for item in zip(rows,cols):
-    df1.iloc[item[0], item[1]] = '{} --> {}'.format(df1.iloc[item[0], item[1]],df3.iloc[item[0], item[1]])
+    df1.iloc[item[1]] = '{} --> {}'.format(df1.iloc[item[1]],df3.iloc[item[1]])
 df1.to_excel("/Users/lynaelhaffaf/Documents/CIMAQ/output1.xlsx")
